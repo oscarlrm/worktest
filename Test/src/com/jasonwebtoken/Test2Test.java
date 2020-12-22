@@ -59,7 +59,7 @@ public class Test2Test {
   @Test
   public void main() throws InterruptedException {
 	  int k=0;	  
-	  for (int i = 143; i < 146; ++i) {
+	  for (int i = 147; i < 150; ++i) {
 		  test2(i,k);
 		  k++;
 		}
@@ -71,7 +71,7 @@ public class Test2Test {
 	  
 	driver.manage().window().maximize();  
 	//Open web site 1
-	if (iter != 143) {
+	if (iter != 147) {
 		((JavascriptExecutor)driver).executeScript("window.open()");
 
 		    ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
@@ -101,10 +101,25 @@ public class Test2Test {
     Thread.sleep(1000);
     //Get JWT field text
     String element = driver.findElement(By.id("jwtInput")).getAttribute("value");
-    System.out.print(element);
+    System.out.println(element);
     //Go to web site 2
     driver.navigate().to("https://live-staging.verb.tech/login/auth0?token=" + element);
-    Thread.sleep(1000);
+    Thread.sleep(10000);
+    
+    try {
+    boolean pres = driver.findElement(By.xpath("//input[@type='text']")).isDisplayed();
+    if(pres==true) {
+    System.out.println("Element is present");
+    driver.findElement(By.xpath("//input[@type='text']")).sendKeys(String.valueOf(iter));
+    driver.findElement(By.xpath("(//input[@type='text'])[2]")).sendKeys(String.valueOf(iter));
+    driver.findElement(By.cssSelector(".mat-button-wrapper")).click();
+    
+    }
+  }catch(Exception e)
+    {
+	  System.out.println("Element is not present");
+    }
+    
   }
   
  
